@@ -7,3 +7,10 @@ export interface Sub {
   //CON EL ? EN DESCRIPTION, ESTOY INDICANDO QUE LA PROPIEDAD ES OPCIONAL
   description?: string;
 }
+
+export type SubsResponseFromApi = Array<{
+  nick: string;
+  months: number;
+  profileUrl: string;
+  description?: string;
+}>;

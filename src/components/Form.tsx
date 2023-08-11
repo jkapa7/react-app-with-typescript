@@ -1,10 +1,5 @@
-import { useState } from "react";
 import { Sub } from "../types";
-
-//UN ESTADO PUEDE TENER VARIOS VALORES, PARA ESO EN LA INTERDACE PUEDO DEFINIR LOS VALORES QUE TENDRA CADA ESTADO
-interface FormState {
-  inputValues: Sub;
-}
+import useNewSubForm from "../hooks/useNewSubForm";
 
 //DEFINO LA INTERFACE PARA LAS PROPS QUE VA A RECIBIR EL FORMULARIO
 interface FormProps {
@@ -13,16 +8,12 @@ interface FormProps {
 
 //INDICO QUE EL USESTATE SERA DE TIPO FORMSTATE
 const Form = ({ onNewSub }: FormProps) => {
-  const [inputValues, setInputValues] = useState<FormState["inputValues"]>({
-    nick: "",
-    avatar: "",
-    subMonths: 0,
-    description: "",
-  });
+  const [inputValues, dispatch] = useNewSubForm();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onNewSub(inputValues);
+    handleClear();
   };
 
   //FORMULARIO CONTROLADO, EL VALUE DEL STATE ES EL DEL INPUT
@@ -30,10 +21,18 @@ const Form = ({ onNewSub }: FormProps) => {
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setInputValues({
-      ...inputValues,
-      [event.target.name]: event.target.value,
+    const { name, value } = event.target;
+    dispatch({
+      type: "change_value",
+      payload: {
+        inputName: name,
+        inputValue: value,
+      },
     });
+  };
+
+  const handleClear = () => {
+    dispatch({ type: "clear" });
   };
 
   return (
@@ -69,7 +68,10 @@ const Form = ({ onNewSub }: FormProps) => {
           name="description"
           placeholder="description"
         />
-        <button>Save new sub!</button>
+        <button type="button" onClick={handleClear}>
+          Clear form
+        </button>
+        <button type="submit">Save new sub!</button>
       </form>
     </div>
   );
