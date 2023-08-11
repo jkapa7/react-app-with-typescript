@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import "./App.css";
-import { Sub, SubsResponseFromApi } from "./types";
+import { Sub } from "./types";
 import List from "./components/List";
 import Form from "./components/Form";
+import { getAllSubs } from "./services/getAllSubs";
 
 //CONTRATO QUE DEBE CUMPLIR CADA SUB.
 interface AppState {
@@ -19,29 +20,7 @@ function App() {
 
   //TYPESCRIPT VALIDA EN ESTATICO, EN BUILD TIME. NO PUEDE VALIDAR COSAS DINAMICAS
   useEffect(() => {
-    const fetchSubs = (): Promise<SubsResponseFromApi> => {
-      return fetch("http://localhost:3001/subs").then((res) => res.json());
-    };
-
-    const mapFromApiToSubs = (apiResponse: SubsResponseFromApi): Array<Sub> => {
-      return apiResponse.map((subFromApi) => {
-        const {
-          months: subMonths,
-          profileUrl: avatar,
-          nick,
-          description,
-        } = subFromApi;
-
-        return {
-          nick,
-          description,
-          avatar,
-          subMonths,
-        };
-      });
-    };
-
-    fetchSubs().then(mapFromApiToSubs).then(setSubs);
+    getAllSubs().then(setSubs);
   }, []);
 
   const handleNewSub = (newSub: Sub) => {
