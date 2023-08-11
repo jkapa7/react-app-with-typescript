@@ -3,9 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: rgba(20, 20, 20, 0.87);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,14 +25,9 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: top;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -43,10 +37,10 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
@@ -55,9 +49,48 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+textarea {
+  font-family: inherit;
+  margin-bottom: 8px;
+  padding: 5px;
+}
+
+ul,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border-radius: 200px;
+  height: auto;
+  width: 50px;
+}
+
+ul,
+ui {
+  border-radius: 4px;
+  border: 1px solid #eee;
+  list-style: none;
+  margin-bottom: 16px;
+  max-width: 320px;
+  padding: 8px 32px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 4px 6px;
+  margin: 0 0 4px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
     background-color: #ffffff;
   }
   a:hover {
